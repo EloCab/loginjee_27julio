@@ -1,4 +1,4 @@
-package loginjee;
+package loginjee.bean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

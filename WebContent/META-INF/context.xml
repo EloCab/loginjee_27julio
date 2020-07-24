@@ -5,9 +5,9 @@
 	auth="Container" 
 	type="javax.sql.DataSource"  
 	username="root" 
-	password="nrmnct29" 
+	password="Eloisa_71" 
 	driverClassName="com.mysql.jdbc.Driver"  
-	url="jdbc:mysql://localhost:3306/hedima" 
+	url="jdbc:mysql://localhost:3306/hedima?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"	 
 	maxActive="50" 
 	maxIdle="20"/> 
 </Context>

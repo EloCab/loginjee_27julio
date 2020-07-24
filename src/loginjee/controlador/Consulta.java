@@ -1,4 +1,4 @@
-package loginjee;
+package loginjee.controlador;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -10,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import loginjee.bean.Usuario;
+import loginjee.persistencia.BaseDeDatos;
 
 
 /**
@@ -25,15 +28,19 @@ public class Consulta extends HttpServlet {
     public Consulta() {
         // TODO Auto-generated constructor stub
     }
+//jdbc:mysql://localhost:3306/hedima?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		Usuario usuario_aux = null;
 		List<Usuario> lu = new ArrayList<Usuario>();
+		
+		//persistencia--> capa de la base de datos: clases de java que interactúan con la base de datos
+		//en nuestro caso, JDBC --> API Connection, DriverManager, Statement, ResultSet
 		
 		try {
 			ResultSet rs = BaseDeDatos.getConnection().createStatement().executeQuery ("SELECT * FROM usuarios");
@@ -50,6 +57,7 @@ public class Consulta extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		
 	
 	}
 	
@@ -59,7 +67,11 @@ public class Consulta extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		
+		System.out.println("llamada a DOPOST");
+		//request.getRequestDispatcher("/index.html").forward(request, response);
+		//response.sendRedirect("index.html");
 	}
 
 }

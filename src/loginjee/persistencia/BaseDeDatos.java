@@ -1,4 +1,4 @@
-package loginjee;
+package loginjee.persistencia;
 
 
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 public class BaseDeDatos {
 
-	
+	//CARGAMOS EL POOL DE CONEXIONES DEFINIDO EN El fichero META-INF/context.xml
 	
 	private static final String fuente = "java:comp/env/jdbc/pool";
 	private final static Logger log = Logger.getLogger("mylog");
@@ -32,6 +32,9 @@ public class BaseDeDatos {
 		return ds;
 	}
 	
+	//PATRÃ“N SINGLETON--> SÃ“LO PUEDE HABER UNA INSTANCIA DE LA CLASE. UN ÃšNICO OBJETO
+	//HACER EL CONSTRUCTOR PRIVATE Y ASÃ� EVITAMOS QUE SE PUEDAN CREAR INSTANCIAS DESDE FUERA
+	
 	private BaseDeDatos() {
 		fuenteDatos = iniciarFuente();
 	}
@@ -48,7 +51,7 @@ public class BaseDeDatos {
 		try {
 			conexion = fuenteDatos.getConnection();
 		} catch (Exception e) {
-			log.error("Imposible obtener conexión a la base de datos", e);
+			log.error("Imposible obtener conexiÃ³n a la base de datos", e);
 		}
 		return conexion;
 	}
