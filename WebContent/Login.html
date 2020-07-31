@@ -6,11 +6,17 @@
 <script src="login.js"></script>
 </head>
 <body>
-	<fieldset style="width: 400px">
-		<legend>COMPROBAR EXISTENCIA USUARIO</legend>
-		<label>Nombre</label><br /> <input type="text" id="nombre" /><br />
-		<label>Password</label><br /> <input type="password" id="pwd" /><br />
-		<button name="submit" onclick="servidorlogin()">CHECK</button>	<br /> 
-	</fieldset>
+	<div class="container">
+		<h4>COMPROBAR EXISTENCIA USUARIO</h4>
+		<fieldset>
+			<label>Nombre</label><br /> <input type="text" id="nombre" /><br />
+			<label>Password</label><br /> <input type="password" id="pwd" /><br />
+			<input type="checkbox" onclick="actualizarCookieRecordar()" name="recordarpwd" id="cajita"> 
+			<label for="recordarpwd" id="lrecordarpwd"> Recordar credenciales</label><br />
+			<button name="submit" onclick="servidorlogin()">CHECK</button><br/>
+			<a href="registro.html">Registro usuario nuevo</a>
+			<br />
+		</fieldset>
+	</div>
 </body>
 </html>

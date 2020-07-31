@@ -1,6 +1,7 @@
 package loginjee.controlador;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import com.google.gson.Gson;
 
 import loginjee.bean.Usuario;
 import loginjee.servicio.UsuarioService;
@@ -18,36 +23,62 @@ import loginjee.servicio.UsuarioService;
 @WebServlet("/ListarUsuariosJSON")
 public class ListarUsuariosJSON extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListarUsuariosJSON() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	private final static Logger log = Logger.getLogger("mylog");
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("LLAMANDO A PEDIR USUARIOS");
-		UsuarioService service = new UsuarioService();
-		List<Usuario> lu =service.listarUsuarios();
-		//pasarla a JSOn
-		//y enviarlo en la respuesta RESPONSE
+	public ListarUsuariosJSON() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		log.debug("LLAMANDO A PEDIR USUARIOS");
+		UsuarioService usuarioService = new UsuarioService();
+		List<Usuario> lu = null;
+		try {
+			lu = usuarioService.listarUsuarios();
+			// PASAR A JSON LU.
+			if ((lu != null) && (lu.size() > 0)) //AND CORTOCIRCUito
+			{
+				log.debug("La lista trae usuarios " + lu);
+				Gson gson = new Gson();
+				String lu_json = gson.toJson(lu);// pasamos de lista
+				// MANDARLO EN BODY.
+				response.getWriter().append(lu_json);
+				// STATUS 200.
+				response.setStatus(HttpURLConnection.HTTP_OK);
+				// TIPO MIME application/json
+				response.setContentType("application/json");
+			} else {
+				response.setStatus(HttpURLConnection.HTTP_NO_CONTENT);
+			}
+			// STATUS 204 NO CONTENT si la cosa fue buen, pero la lista está vacía
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("Error recuperando la lista de usarios", e);
+			// STATUS 500;
+			response.setStatus(HttpURLConnection.HTTP_INTERNAL_ERROR);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		// doGet(request, response);
 	}
 
 }
