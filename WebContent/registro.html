@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ALTA NUEVO USUARIO</title>
+<script type="text/javascript" src="registro.js"></script>
+</head>
+<body>
+	<div class="container">
+		<form action="/loginjee/AltaUsuario" method="post">
+			<fieldset>
+				<label>Nombre</label><br /> <input type="text" oninput="modificadoFormulario()" id="nombre" /><br />
+				<label>Password</label><br /> <input type="password" oninput="modificadoFormulario()" id="pwd" /><br />
+
+				<input type="submit" id="botonalta" value="ALTA" disabled>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
