@@ -8,8 +8,11 @@
 <body>
 	<div class="container">
 		<form action="/loginjee/AltaUsuario" method="post">
+		<fieldset id="errornombre">
+			</fieldset>
 			<fieldset>
-				<label>Nombre</label><br /> <input type="text" oninput="modificadoFormulario()" id="nombre" /><br />
+				<label>Nombre</label><br /> <input type="text" onchange="comprobarNombreDisponible()"
+				 oninput="modificadoFormulario()" id="nombre" /><br />
 				<label>Password</label><br /> <input type="password" oninput="modificadoFormulario()" id="pwd" /><br />
 
 				<input type="submit" id="botonalta" value="ALTA" disabled>
